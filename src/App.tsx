@@ -1,16 +1,20 @@
 import React from 'react'
 import './App.scss'
-import { createBEM } from '@/utils/ui/bem'
+import { RouterProvider } from 'react-router-dom'
+import { router } from '@/utils/router'
 
-const bem = createBEM('app')
+const future = {
+  v7_startTransition: true,
+}
 
 function App() {
 
   return (
-    <div className={bem()}>
-      <h2>webpack5-react-ts</h2>
-      123456
-    </div>
+    <RouterProvider
+      fallbackElement={null}
+      router={router}
+      future={future}
+    />
   )
 }
 
