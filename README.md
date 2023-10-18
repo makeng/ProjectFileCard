@@ -1,18 +1,37 @@
-# 1.React18+webpack5+ts4.x脚手架
+# Vite + React + Typescript + Electron - Starter
 
->由于想搭建一个适合更多人使用的大而全的完整项目，也想搞清楚其中每个关键环节和依赖的作用，且会随着时间不断迭代，加入新东西，为了避免产出一篇过长的文章，作长远考虑，将会分为多篇文章~
+![Vite + React + Typescript + Tailwind + Electron Starter](Screenshot.jpg)
 
-- 技术栈：webpack5 + React18 + TS4.x
-- 工程化：eslint + prettier + stylelint + husky + commitlint
-- 样式与处理器：CSS module（scss）、Atom CSS（tailwind）
-- UI 框架：Antd5.x（Antd按需加载、主题等）、Arco design
-- 图片、fonts、数据资源(JSON、csv、tsv等)
-- 热更新、资源压缩、代码分离（动态导入、懒加载等）、缓存
+> It is a simple starter template without unnecessary packages.
 
-***
+This very simple Starter template, utilizes [Vite](https://github.com/vitejs/vite), [Tailwind](https://tailwindcss.com/), [React](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/) and [Electron](https://electronjs.org/).
 
-前端：[react18-ts4-webpack5-starter](https://github.com/ian-kevin126/react18-ts4-webpack5-starter)
+By default, the React framework is used for the interface, but you can easily use any other framework such as Vue, Preact, Angular, Svelte or anything else.
 
-后端：[gin_common_web_server](https://github.com/ian-kevin126/gin_common_web_server)
+> Vite is framework agnostic
 
-***
+## Installation
+
+Clone this repo and install all dependencies  
+`yarn` or `npm install`
+
+## Development
+
+`yarn dev` or `npm run dev`
+
+## Build
+
+`yarn build` or `npm run build`
+
+## Publish
+
+`yarn dist` or `npm run dist`
+
+## More advanced templates  
+
+If you are looking for more advanced templates than this, please go to one of the following links (these are some other links out of the **[awesome-vite](https://github.com/vitejs/awesome-vite)** repo) or you can help me make this template better 🙂  
+
+Links: 
+- [vite-react-electron](https://github.com/caoxiemeihao/vite-react-electron)
+- [electron-vite-react](https://github.com/twstyled/electron-vite-react)
+- [vite-electron-esbuild-starter](https://github.com/jctaoo/vite-electron-esbuild-starter)
