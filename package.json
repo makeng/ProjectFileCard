@@ -10,9 +10,9 @@
   ],
   "productName": "vite-reactts-electron-starter",
   "scripts": {
-    "dev": "concurrently \"npm dev:vite\" \" npm dev:electron\"",
+    "dev": "concurrently \"vite\" \"npm run dev:electron\"",
     "dev:vite": "vite",
-    "dev:electron": "pnpm run build:electron && electron .",
+    "dev:electron": "npm run build:electron && electron .",
     "build": "npm run build:vite && npm run build:electron",
     "build:vite": "vite build",
     "build:electron": "tsc -p electron",
