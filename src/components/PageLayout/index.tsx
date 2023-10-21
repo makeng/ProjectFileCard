@@ -1,35 +1,39 @@
 import React, { ReactNode } from 'react'
 import { Layout } from '@arco-design/web-react'
+import { ConfigProvider, ConfigProviderProps } from '../config'
 // fn
 
 const { Sider, Header, Footer, Content } = Layout
 
-interface Props {
+interface Props extends ConfigProviderProps {
   header: ReactNode
   sider: ReactNode
   content: ReactNode
   footer: ReactNode
 }
 
-const Index: React.FC<Props> = ({ header, sider, content, footer }) => {
+const Index: React.FC<Props> = (props) => {
+  const { header, sider, content, footer } = props
   return (
-    <Layout>
-      <Header>{header}</Header>
+    <ConfigProvider {...props}>
       <Layout>
-        <Sider
-          resizeDirections={['right']}
-          style={{
-            minWidth: 150,
-            maxWidth: 500,
-            height: 200,
-          }}
-        >
-          {sider}
-        </Sider>
-        <Content>{content}</Content>
+        <Header>{header}</Header>
+        <Layout>
+          <Sider
+            resizeDirections={['right']}
+            style={{
+              minWidth: 150,
+              maxWidth: 500,
+              backgroundColor: 'transparent'
+            }}
+          >
+            {sider}
+          </Sider>
+          <Content>{content}</Content>
+        </Layout>
+        <Footer>{footer}</Footer>
       </Layout>
-      <Footer>{footer}</Footer>
-    </Layout>
+    </ConfigProvider>
   )
 }
 
