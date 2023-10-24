@@ -4,10 +4,13 @@ import { join } from 'path'
 import { app, BrowserWindow, ipcMain, IpcMainEvent } from 'electron'
 import isDev from 'electron-is-dev'
 
-const { platform, env } = require('node:process')
+import { env } from 'node:process'
+import { isMac } from '../src/utils/env'
 
 const height = 600
 const width = 800
+
+console.log('dir', __dirname)
 
 function createWindow() {
   // Create the browser window.
@@ -20,8 +23,9 @@ function createWindow() {
     resizable: true,
     fullscreenable: true,
     webPreferences: {
-      preload: join(__dirname, 'preload.js')
-    }
+      nodeIntegration: true,
+      preload: join(__dirname, 'preload/index.ts'),
+    },
   })
 
   const port = env.PORT || 3000
@@ -30,11 +34,11 @@ function createWindow() {
   // and load the index.html of the app.
   if (isDev) {
     window?.loadURL(url)
+    // Open the DevTools.
+    window.webContents.openDevTools({ mode: 'right' })
   } else {
     window?.loadFile(url)
   }
-  // Open the DevTools.
-  // window.webContents.openDevTools();
 
   // For AppBar
   ipcMain.on('minimize', () => {
@@ -69,7 +73,7 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (platform !== 'darwin') app.quit()
+  if (!isMac()) app.quit()
 })
 
 // In this file you can include the rest of your app's specific main process
