@@ -24,7 +24,7 @@ function createWindow() {
     fullscreenable: true,
     webPreferences: {
       nodeIntegration: true,
-      preload: join(__dirname, 'preload/index.ts'),
+      preload: join(__dirname, 'preload'),
     },
   })
 

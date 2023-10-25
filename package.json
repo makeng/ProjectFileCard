@@ -1,7 +1,7 @@
 {
   "name": "vite-reactts-electron-starter",
   "license": "MIT",
-  "main": "main/index.js",
+  "main": "main/electron/index.js",
   "keywords": [
     "vite",
     "react",

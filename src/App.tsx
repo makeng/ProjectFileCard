@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { PageLayout } from './components'
 import { Button } from '@arco-design/web-react'
 import '@arco-design/web-react/dist/css/arco.css'
 
 
 function App() {
+  useEffect(() => {
+    window.main.selectFolder()
+  }, [])
+
   return (
     <PageLayout
       className="bg-slate-900	h-screen"

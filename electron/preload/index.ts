@@ -5,4 +5,4 @@ import { api as fileApi } from './file'
 const electronApi = Object.assign(fileApi)
 
 // Naming from https://www.electronjs.org/zh/docs/latest/api/context-bridge
-contextBridge.exposeInMainWorld('electron', electronApi)
+contextBridge.exposeInMainWorld('main', electronApi)
