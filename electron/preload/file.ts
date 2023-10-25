@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron'
 import { FileItem, IPCKeyOfFile, SelectFolderResult } from './types'
 
-export const api = {
+export const fileApi = {
   selectFolder: (): Promise<SelectFolderResult | undefined> =>
     ipcRenderer.invoke(IPCKeyOfFile.SelectFolder),
 

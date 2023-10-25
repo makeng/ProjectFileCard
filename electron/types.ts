@@ -1,3 +1,3 @@
-export interface ElectronAPI {
-  loadPreferences: () => Promise<void>,
-}
+import { fileApi } from './preload/file'
+
+export type ElectronAPI = typeof fileApi
