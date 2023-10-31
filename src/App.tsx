@@ -2,11 +2,18 @@ import React, { useEffect } from 'react'
 import { PageLayout } from './components'
 import { Button } from '@arco-design/web-react'
 import '@arco-design/web-react/dist/css/arco.css'
+import { prjFolder } from './system/prj'
 
 
 function App() {
   useEffect(() => {
-    window.main.selectFolder()
+    let targetPrjFolder = prjFolder.get()
+    if (!targetPrjFolder) {
+      window.main.selectFolder().then(folder => {
+        prjFolder.set(folder)
+        targetPrjFolder = folder
+      })
+    }
   }, [])
 
   return (

@@ -2,7 +2,7 @@ import { ipcRenderer } from 'electron'
 import { FileItem, IPCKeyOfFile, SelectFolderResult } from './types'
 
 export const fileApi = {
-  selectFolder: (): Promise<SelectFolderResult | undefined> =>
+  selectFolder: (): Promise<SelectFolderResult> =>
     ipcRenderer.invoke(IPCKeyOfFile.SelectFolder),
 
   enumFiles: (folderPath: string): Promise<FileItem[]> =>

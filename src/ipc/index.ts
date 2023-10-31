@@ -2,10 +2,8 @@ import { onEnumFiles, onOpenFile, onSelectFolder } from './file'
 import { ipcMain } from 'electron'
 import { IPCKeyOfFile } from '../../electron/preload/types'
 
-let initialized = false
-
 // All the events define here.
-const eventMap = new Map([
+const eventMap = new Map<IPCKeyOfFile, (...args: any) => any>([
   [IPCKeyOfFile.SelectFolder, onSelectFolder],
   [IPCKeyOfFile.EnumItems, onEnumFiles],
   [IPCKeyOfFile.OpenItem, onOpenFile]
@@ -15,10 +13,10 @@ const eventMap = new Map([
  * Initialize IPC events.
  */
 export function initializeIpcEvents() {
-  if (initialized) {
+  if (initializeIpcEvents.invoked) {
     return
   }
-  initialized = true
+  initializeIpcEvents.invoked = true
 
   for (const [key, event] of eventMap) {
     ipcMain.handle(key, event)
@@ -30,3 +28,4 @@ export function releaseIpcEvents() {
     ipcMain.removeAllListeners(key)
   }
 }
+initializeIpcEvents.invoked = false

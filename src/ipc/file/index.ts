@@ -22,10 +22,10 @@ export function onSelectFolder(ev: IpcMainInvokeEvent) {
     }
     const folderPath = result.filePaths[0]
     const items = await enumFiles(folderPath)
-    console.log('items', items)
     return { name: Path.basename(folderPath), folderPath, items }
   }
-  dialog.showOpenDialog(win, {
+
+  return dialog.showOpenDialog(win, {
     title: 'Select root folder',
     properties: ['openDirectory']
   }).then(dialogCb)
