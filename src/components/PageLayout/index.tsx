@@ -8,28 +8,24 @@ const { Sider, Header, Footer, Content } = Layout
 
 interface Props extends ConfigProviderProps {
   title?: string
-  folderList: Obj[]
+  fileList: Obj[]
   content: ReactNode
   footer: ReactNode
 }
 
 const Index: React.FC<Props> = (props) => {
-  const { title, folderList, content, footer } = props
+  const { title, fileList, content, footer } = props
 
   return (
     <ConfigProvider {...props}>
       <Layout>
-        <Header className="text-white pt-2 pl-5 text-lg">{title}</Header>
-        <Layout>
+        <Header className="text-white pt-2 pb-2 pl-5 text-lg">{title}</Header>
+        <Layout className='h-max'>
           <Sider
             resizeDirections={['right']}
-            style={{
-              minWidth: 150,
-              maxWidth: 500,
-              backgroundColor: 'transparent'
-            }}
+            className='bg-transparent'
           >
-            <FolderMenu folderList={folderList}/>
+            <FolderMenu fileList={fileList}/>
           </Sider>
           <Content>{content}</Content>
         </Layout>

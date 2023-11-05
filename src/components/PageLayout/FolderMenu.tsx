@@ -1,30 +1,39 @@
-import React from 'react'
+import React, { memo, ReactNode } from 'react'
 import { Tree } from '@arco-design/web-react'
 import { ConfigProviderProps } from '../config'
+import { IconCode, IconFolder } from '@arco-design/web-react/icon'
 // var
 
-const TreeNode = Tree.Node
-
 interface Props extends ConfigProviderProps {
-  folderList: Obj[]
+  fileList: Obj[]
 }
 
 const Index: React.FC<Props> = (props) => {
-  const { folderList, } = props
+  const { fileList, } = props
+  const fileTree = fileListToTree(fileList)
 
   return (
-    <Tree>
-      <TreeNode title="Trunk" key="0-0">
-        <TreeNode title="Branch 0-0-0" key="0-0-0" disabled>
-          <TreeNode title="Leaf" key="0-0-0-0" />
-          <TreeNode title="Leaf" key="0-0-0-1" />
-        </TreeNode>
-        <TreeNode title="Branch 0-0-1" key="0-0-1">
-          <TreeNode title="Leaf" key="0-0-1-0" />
-        </TreeNode>
-      </TreeNode>
-    </Tree>
+    <Tree treeData={fileTree} />
   )
 }
 
-export default Index
+function createTreeNode(file: Obj, icon: ReactNode) {
+  const title = file.name
+  return {
+    title,
+    key: title,
+    icon
+  }
+}
+
+function fileListToTree(fileList: Obj[]) {
+  const importantFiles = fileList.filter(item => !item.name.startsWith('.')) // Only the important file
+  const folders = importantFiles.filter(item => item.isDirectory)
+  const codeFiles = importantFiles.filter(item => !item.isDirectory)
+
+  const foldersTree = folders.map(item => createTreeNode(item, <IconFolder />))
+  const codeFilesTree = codeFiles.map(item => createTreeNode(item, <IconCode />))
+  return foldersTree.concat(codeFilesTree)
+}
+
+export default memo(Index)

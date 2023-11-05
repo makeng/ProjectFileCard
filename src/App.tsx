@@ -30,9 +30,9 @@ function App() {
 
   return (
     <PageLayout
-      className="bg-slate-900	h-screen"
+      className="bg-slate-900	h-screen flex flex-col"
       title={targetPrjFolder?.name}
-      folderList={2}
+      fileList={targetPrjFolder?.items || []}
       content={<Button type="primary">Primary</Button>}
       footer={4}
     />
