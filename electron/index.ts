@@ -8,10 +8,8 @@ import { env } from 'node:process'
 import { isMac } from '../src/utils/env'
 import { initializeIpcEvents, releaseIpcEvents } from '../src/ipc'
 
-const height = 600
-const width = 800
-
-console.log('dir', __dirname)
+const height = 1000
+const width = 1200
 
 function createWindow() {
   // Create the browser window.

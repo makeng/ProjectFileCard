@@ -9,6 +9,7 @@ dist-ssr
 /main
 /dist
 /src/out
+*.yaml
 
 # debug
 npm-debug.log*
