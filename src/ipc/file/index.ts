@@ -31,6 +31,13 @@ export function onSelectFolder(ev: IpcMainInvokeEvent) {
   }).then(dialogCb)
 }
 
-export function onEnumFiles() {}
+/**
+ * Occurs when an item enumeration in the folder is requested.
+ * @param _ev
+ * @param folderPath Path of the target folder.
+ */
+export function onEnumFiles(_ev: IpcMainInvokeEvent, folderPath: string) {
+  return enumFiles(folderPath)
+}
 
 export function onOpenFile() {}
