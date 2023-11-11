@@ -30,7 +30,7 @@ function App() {
 
   return (
     <PageLayout
-      className="bg-slate-900	h-screen flex flex-col"
+      className="bg-slate-900	h-screen flex flex-col overflow-hidden"
       title={targetPrjFolder?.name}
       fileList={targetPrjFolder?.items || []}
       content={<Button type="primary">Primary</Button>}

@@ -18,14 +18,15 @@ const Index: React.FC<Props> = (props) => {
 
   return (
     <ConfigProvider {...props}>
-      <Layout>
+      <Layout className='h-screen'>
         <Header className="text-white pt-2 pb-2 pl-5 text-lg">{title}</Header>
-        <Layout className='h-max'>
+        <Layout className="h-max overflow-scroll">
           <Sider
             resizeDirections={['right']}
-            className='bg-transparent'
+            className="bg-transparent"
+            style={{ width: '300px' }}
           >
-            <FolderMenu fileList={fileList}/>
+            <FolderMenu fileList={fileList} />
           </Sider>
           <Content>{content}</Content>
         </Layout>
