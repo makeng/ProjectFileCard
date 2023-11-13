@@ -6,14 +6,12 @@
 import aes from 'crypto-js/aes'
 import encUtf8 from 'crypto-js/enc-utf8'
 
-/* 本地存储时候的名字
- - 集中用对象管理的目的
-    - 保证唯一性，否则有人用 'good' 作为键值，另外一个人也写 'good'，就覆盖了
-    - 方便统一清理
- - 非永久建议使用 temp_ 最为前缀，方便识别和清扫
+/**
+ * Make sure they won't have duplicate keys
  */
 export enum GlobalStorageKey {
-  PRJ_FOLDER = 'prj-folder'
+  PRJ_FOLDER = 'prj-folder',
+  PRJ_FILE_EXPENDEDS = 'prj-file-expendeds'
 }
 
 /**

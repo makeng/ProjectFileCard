@@ -1,38 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { PageLayout } from './components'
 import { Button } from '@arco-design/web-react'
 import '@arco-design/web-react/dist/css/arco.css'
-import { localPrjFolder } from './system/prj'
 import { SelectFolderResult } from '../electron/preload/types'
 import { useWillMount } from '@better-hooks/lifecycle'
+import { useLocalStorageState } from 'ahooks'
+import { GlobalStorageKey } from './utils/storage'
 
 
 function App() {
-  const [targetPrjFolder, setTargetPrjFolder] = useState<SelectFolderResult>()
+  const [prjFolder, setTargetPrjFolder] = useLocalStorageState<SelectFolderResult>(GlobalStorageKey.PRJ_FOLDER)
 
   useWillMount(() => {
     document.body.setAttribute('arco-theme', 'dark')
   })
 
   useEffect(() => {
-    const prjFolder = localPrjFolder.get()
     if (!prjFolder) {
       window.main.selectFolder().then(folder => {
-        localPrjFolder.set(folder)
         setTargetPrjFolder(folder)
       })
-    } else {
-      setTargetPrjFolder(prjFolder)
     }
   }, [])
 
-  console.log(targetPrjFolder)
+  console.log({prjFolder})
 
   return (
     <PageLayout
       className="bg-slate-900	h-screen flex flex-col overflow-hidden"
-      title={targetPrjFolder?.name}
-      fileList={targetPrjFolder?.items || []}
+      title={prjFolder?.name}
+      fileList={prjFolder?.items || []}
       content={<Button type="primary">Primary</Button>}
       footer={4}
     />
