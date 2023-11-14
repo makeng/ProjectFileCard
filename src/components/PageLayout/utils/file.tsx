@@ -1,42 +1,20 @@
-import React, { ReactNode } from 'react'
-import {
-  IconBgColors, IconCode, IconCodeBlock, IconCommon, IconDriveFile, IconFilePdf, IconFolder
-} from '@arco-design/web-react/icon'
+import React from 'react'
 
 const IGNORE_FILES_SUFFIX = ['.log', '.lock']
 
-function createTreeNode(file: Obj, icon: ReactNode, isLeaf: boolean): Obj {
+function createTreeNode(file: Obj, isLeaf: boolean): Obj {
   const { name: title } = file
   return {
     title,
-    icon,
     isLeaf,
     ...file
   }
 }
 
 /**
- * Get an icon by filename
- * @param filename
- */
-export function findIconByName(filename: string) {
-  const fileNameList = filename.split('.')
-  fileNameList.shift()
-  const targetSuffix = fileNameList.join('.')
-  const suffixToIconList = [
-    { suffix: ['ts', 'js', 'tsx', 'jsx'], icon: <IconCode /> },
-    { suffix: ['css', 'scss', 'sass', 'less'], icon: <IconBgColors /> },
-    { suffix: ['json'], icon: <IconCodeBlock /> },
-    { suffix: ['md', 'doc'], icon: <IconFilePdf /> },
-    { suffix: ['config.json', 'config.ts', 'config.js', 'd.ts'], icon: <IconCommon /> },
-  ]
-  const res = suffixToIconList.find(({ suffix }) => suffix.some(name => targetSuffix === name))
-  return res?.icon || <IconDriveFile />
-}
-
-/**
  * Create a file tree recursively
  * @param fileList
+ * @param isLeaf
  */
 export function listToNodes(fileList: Obj[], isLeaf = false) {
   const importantFiles = fileList.filter(item => !item.name.startsWith('.')) // Only the important file
@@ -46,8 +24,8 @@ export function listToNodes(fileList: Obj[], isLeaf = false) {
     !IGNORE_FILES_SUFFIX.some(suffix => item.name.endsWith(suffix))
   )
 
-  const foldersTree = folders.map(item => createTreeNode(item, <IconFolder />, isLeaf))
-  const codeFilesTree = otherFiles.map(item => createTreeNode(item, findIconByName(item.name)), isLeaf)
+  const foldersTree = folders.map(item => createTreeNode(item, isLeaf))
+  const codeFilesTree = otherFiles.map(item => createTreeNode(item, isLeaf))
   return foldersTree.concat(codeFilesTree)
 }
 

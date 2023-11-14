@@ -11,6 +11,7 @@ import encUtf8 from 'crypto-js/enc-utf8'
  */
 export enum GlobalStorageKey {
   PRJ_FOLDER = 'prj-folder',
+  PRJ_FILE_TREE = 'prj-file-tree',
   PRJ_FILE_EXPENDEDS = 'prj-file-expendeds'
 }
 
