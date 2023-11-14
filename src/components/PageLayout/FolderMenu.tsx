@@ -1,13 +1,12 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import { Tree } from '@arco-design/web-react'
 import { ConfigProviderProps } from '../config'
 import { listToNodes } from './utils/file'
-import { useDebounceEffect, useLocalStorageState } from 'ahooks'
+import { useDebounceEffect, useLocalStorageState, usePrevious } from 'ahooks'
 import { sleep } from 'ahooks/es/utils/testingHelpers'
 import { GlobalStorageKey } from '../../utils/storage'
 import { removeIconRecursively, setIconRecursively } from './utils'
-import { size } from 'lodash'
-import { localPrjFileTree } from '../../system/prj'
+import { isEqual, size } from 'lodash'
 
 interface Props extends ConfigProviderProps {
   fileList: Obj[]
@@ -17,14 +16,16 @@ const WAIT_TO_READ_STORAGE = 50
 
 const Index: React.FC<Props> = (props) => {
   const { fileList, } = props
-  const [tree, setTree] = useState<Obj[]>([]) // Couldn't be store in localStorage becaust of the icon node
+  const [tree = [], setTree] = useLocalStorageState<Obj[]>(GlobalStorageKey.PRJ_FILE_TREE, {
+    // Couldn't be store in localStorage becaust of the icon node
+    serializer: (value) => JSON.stringify(removeIconRecursively(value))
+  })
   const [expandedFolders = [], setExpandedKeys] = useLocalStorageState<string[]>(GlobalStorageKey.PRJ_FILE_EXPENDEDS)
+  const previousFileList = usePrevious(fileList)
 
   useDebounceEffect(() => {
-    if (localPrjFileTree.get()) {
-      const nextTree = localPrjFileTree.get()
-      setTree(nextTree)
-    } else {
+    // If folder is changed
+    if (size(previousFileList) && !isEqual(previousFileList, fileList)) {
       const nextTree = listToNodes(fileList, true)
       nextTree.map(async (item, index) => {
         if (item.isDirectory) {
@@ -43,7 +44,6 @@ const Index: React.FC<Props> = (props) => {
       item.dataRef.children = listToNodes(sutItems || [], true)
 
       setTree([...tree])
-      localPrjFileTree.set(removeIconRecursively(tree))
       sleep(WAIT_TO_READ_STORAGE).then(() => toggleSelectedFolder(key)) // Wait for tree to be stable
     }
   }
