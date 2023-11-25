@@ -1,15 +1,18 @@
 import React, { useLayoutEffect } from 'react'
 // var
 import 'vditor/dist/index.css'
-import { initVditor } from './utils'
+import { initVditor, setVditorTheme } from './utils/vditor'
 
 
 const prefixId = 'vditor'
 
 const Index: React.FC = () => {
   useLayoutEffect(() => {
-    window.vditor = initVditor(prefixId)
-  })
+    initVditor(prefixId).then(vditor => {
+      vditor = setVditorTheme(vditor, 'dark')
+      window.vditor = vditor
+    })
+  }, [])
 
   return (
     <div id="vditor">
