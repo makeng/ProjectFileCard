@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { PageLayout } from './components'
-import { Button } from '@arco-design/web-react'
+import { MdEditor, PageLayout } from './components'
 import '@arco-design/web-react/dist/css/arco.css'
 import { SelectFolderResult } from '../electron/preload/types'
 import { useWillMount } from '@better-hooks/lifecycle'
@@ -23,14 +22,12 @@ function App() {
     }
   }, [])
 
-  console.log({prjFolder})
-
   return (
     <PageLayout
       className="bg-slate-900	h-screen flex flex-col overflow-hidden"
       title={prjFolder?.name}
       fileList={prjFolder?.items || []}
-      content={<Button type="primary">Primary</Button>}
+      content={<MdEditor />}
       footer={4}
     />
   )
