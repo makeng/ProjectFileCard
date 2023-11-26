@@ -6,18 +6,24 @@ import { initVditor, setVditorTheme } from './utils/vditor'
 
 const prefixId = 'vditor'
 
-const Index: React.FC = () => {
+interface Props {
+  fileId: string; // For file caching
+}
+
+const Index: React.FC<Props> = (props) => {
+  const { fileId } = props
+
   useLayoutEffect(() => {
-    initVditor(prefixId).then(vditor => {
-      vditor = setVditorTheme(vditor, 'dark')
-      window.vditor = vditor
-    })
-  }, [])
+    if (fileId) {
+      initVditor(prefixId, fileId).then(vditor => {
+        vditor = setVditorTheme(vditor, 'dark')
+        window.vditor = vditor
+      })
+    }
+  }, [fileId])
 
   return (
-    <div id="vditor">
-
-    </div>
+    <div id="vditor" />
   )
 }
 

@@ -1,17 +1,23 @@
 import Vditor from 'vditor'
 
-export function initVditor(id: string): Promise<Vditor> {
-  // Nothing we should change here
-  const OPTIONS_FORM_DOC = {}
-
+export function initVditor(domId: string, contentId: string): Promise<Vditor> {
   return new Promise(resolve => {
     let vditor: Vditor
     // Modify these due to our needs
     const options = {
       height: '100%',
+      lang: 'en_US',
+      outline: {
+        enable: true,
+        position: 'right'
+      },
+      cache: {
+        id: contentId
+      },
       after: () => resolve(vditor),
     }
-    vditor = new Vditor(id, { ...OPTIONS_FORM_DOC, ...options })
+    // @ts-ignore NOTE: Type error from source code, not these options
+    vditor = new Vditor(domId, options)
   })
 }
 

@@ -2,23 +2,22 @@ import React, { ReactNode } from 'react'
 import { Layout } from '@arco-design/web-react'
 import { ConfigProvider, ConfigProviderProps } from '../config'
 // var
-import FolderMenu from './FolderMenu'
 
 const { Sider, Header, Footer, Content } = Layout
 
 interface Props extends ConfigProviderProps {
   title?: string
-  fileList: Obj[]
+  sider: ReactNode
   content: ReactNode
   footer: ReactNode
 }
 
 const Index: React.FC<Props> = (props) => {
-  const { title, fileList, content, footer } = props
+  const { title, content,sider, footer } = props
 
   return (
     <ConfigProvider {...props}>
-      <Layout className='h-screen'>
+      <Layout className="h-screen">
         <Header className="text-white pt-2 pb-2 pl-5 text-lg">{title}</Header>
         <Layout className="h-max overflow-scroll">
           <Sider
@@ -26,7 +25,7 @@ const Index: React.FC<Props> = (props) => {
             className="bg-transparent"
             style={{ width: '300px' }}
           >
-            <FolderMenu fileList={fileList} />
+            {sider}
           </Sider>
           <Content>{content}</Content>
         </Layout>

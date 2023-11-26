@@ -10,6 +10,7 @@ import { isEqual, size } from 'lodash'
 
 interface Props extends ConfigProviderProps {
   fileList: Obj[]
+  onSelectItem(path: string): void;
 }
 
 const WAIT_TO_READ_STORAGE = 50
@@ -39,12 +40,16 @@ const Index: React.FC<Props> = (props) => {
 
   async function selectFile(key: string, item: Obj) {
     // If node is a folder, expend it
-    if (item.isDirectory && !size(item.children)) {
-      const sutItems = await window.main.enumFiles(item.path)
-      item.dataRef.children = listToNodes(sutItems || [], true)
+    if (item.isDirectory) {
+      if (!size(item.children)) {
+        const sutItems = await window.main.enumFiles(item.path)
+        item.dataRef.children = listToNodes(sutItems || [], true)
 
-      setTree([...tree])
-      sleep(WAIT_TO_READ_STORAGE).then(() => toggleSelectedFolder(key)) // Wait for tree to be stable
+        setTree([...tree])
+        sleep(WAIT_TO_READ_STORAGE).then(() => toggleSelectedFolder(key)) // Wait for tree to be stable
+      }
+    } else {
+      props.onSelectItem(item.path)
     }
   }
 
