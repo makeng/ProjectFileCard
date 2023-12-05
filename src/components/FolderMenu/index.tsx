@@ -1,6 +1,5 @@
 import React, { memo } from 'react'
 import { Tree } from '@arco-design/web-react'
-import { ConfigProviderProps } from '../config'
 import { listToNodes } from './utils/file'
 import { useDebounceEffect, useLocalStorageState, usePrevious } from 'ahooks'
 import { sleep } from 'ahooks/es/utils/testingHelpers'
@@ -8,7 +7,7 @@ import { GlobalStorageKey } from '../../utils/storage'
 import { removeIconRecursively, setIconRecursively } from './utils'
 import { isEqual, size } from 'lodash'
 
-interface Props extends ConfigProviderProps {
+interface Props {
   fileList: Obj[]
   onSelectItem(path: string): void;
 }
